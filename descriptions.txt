@@ -1,4 +1,9 @@
-[YOUR NAME HERE]
+Khalil Jackson
 
 Document your defusals in this file. Don't forget to identify the theme of each phase!
 
+Phase_1: String Comparison
+
+Realize the assembly code gave us a string in %eax. Then we realize phase one has a function that checks to see if two strings are equal. 
+There is a jne that sends us to boom when we are returned a value of 1 from the strign comparison function. It logically follows that
+a function that sees if two strings are equal would accept the string that was given to us in the code.

@@ -1,1 +1,6 @@
 I am serious...and don't call me Shirley.
+1 2 4 8 16 32
+4 0
+60 3
+5 115
+2 3 5 1 6 4

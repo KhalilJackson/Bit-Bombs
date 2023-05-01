@@ -1,0 +1,59 @@
+Khalil Jackson
+
+Document your defusals in this file. Don't forget to identify the theme of each phase!
+
+Phase_1: Comparison
+
+This phase entailed comparing two strings to one another, particularly a seemingly random string hidden within it to user input.
+
+I realized the assembly code gave me a seemingly random string in %eax. Then, I realized phase one has a function that checks to see if two strings are equal. 
+There is a jne that sends us to boom when we are returned a value of 1 from the string comparison function. It logically follows that
+a function that sees if two strings are equal--one that contains a distinct string that is not used anywhere else and has the user input a string--wants those
+two things to be equivalent.
+
+Phase_2: Loops
+
+This phase entails using a loop to create a new value that is double the value of the current value.
+
+The way I discovered this is by seeing the phase takes six arguments, so I started with 1 2 3 4 5 6, then 1 2 333 444 555 666, then 1 2 4 444 555 666. I stepped
+through the function paying special attention to rbx, eax, and rbp. What I noticed in the first and second set of inputs is that it would start with rbx and eax
+being 1; then eax would effectively double and so would rbx. This seemed coincidental until the third argument became 333 so I could explicitly see that rbx
+indicated the current inputted value it was looking at. Afterwards, the patten of 1 2 4 ... came together once I realized rbx and rbp needed to match and eax
+was doubling.  
+
+Phase_3: Switch Statements
+
+The phase involved finding one of the many combination of numbers that lead us through the switch cases to the return statement.
+
+The first thing I noticed are a lot of jumps in the second half of the function to the first half, likely indicating there are multiple answers to the phase.
+The main thing about executing this phase is understanding that the phase is putting the first and second arguments into the stack and rsp + 12 and rsp + 8,
+respectively. Arguments are added then the stack pointer is adjusted from there, I determined that the first value needs to be less than seven. From there,
+I notice that eax goes through some arithmetic in the middle chunk of the function and needs to equal the second argument afterwards.
+
+Phase_4: Recursion
+
+This phase involved comparing the output of a recursive function to inputted values.
+
+I noticed the function takes two arguments, has a function that recurses and takes two arguments (always uses six for the first argument and the second inputted
+number for the second argument), and a comparison immediately after the recursive function checking that two values are the same. Instead of determining how
+the recursive function operated, I thought it best to see what it returned, leading me to realize the phase uses the second value in the recursive function, and
+the first number should matche the output of that recursive function.
+
+Phase_5: Array
+
+This phase required using array values to determine a chain that would allow the function to iterate through them all.
+
+I realized there is one move statement mov 0x4032c0(,%rax,4),%eax that, if you go to that addess, see that it it the first argument in an array. From there, I 
+used pointer arithmetic to find all 16 values and realized the phase is moving from one value to the next, particularly it goes from current index to the index
+that matches the value stored at the current index. After finding a chain that lead to all values being reached, I realized it also asks for the sum of all 
+value. The first argument is the node to begin at, and the second argument is the sum of all the node values.
+
+Phase_6: Structs
+
+This phase entails using a struct to find node values and arranging inputted values (that correlate to a particular node) in a certain way.
+
+After some time, I relaized all six values must be lower than 5 and greater than 0, but all values are subtracted by one, meaning that all possible values are
+between 1-6. I noticed there is a line that moves values based off the address 0x4052f0, which I found out is the beginning of the nodes; from there I added 16
+to the address to write down all nodes and their values. This is where I realized each node has a unique value, and the inputed 1-6 correspond to a node in order.
+A little after line 99, edx gets set to the first node and depending on the following inputs will move to the next node, meaning there is a particular order for
+them (at this point, 1 2 3 4 5 6 was the inputted value). I tried executing the function in descending order of node values. Then, I tried ascending. 

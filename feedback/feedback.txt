@@ -1,0 +1,12 @@
+Lab 3 - BitBomb
+Khalil J
+
+Phases defused: 6/6
+
+Explosions: 1
+
+-Recursion in phase 4 is a variant on the Fibonacci sequence
+
+-All looks good!
+
+Score: 100/100
